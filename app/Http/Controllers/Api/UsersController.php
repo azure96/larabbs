@@ -50,7 +50,7 @@ class UsersController extends Controller
         }
 
         // 判断验证码是否相等，不相等返回 401 错误
-        if (!has_equals((string)$verifyData['code'], $request->verification_code)) {
+        if (!hash_equals((string)$verifyData['code'], $request->verification_code)) {
             return $this->response->errorUnauthorized('验证码错误');
         }
 
@@ -115,5 +115,12 @@ class UsersController extends Controller
     public function activedIndex(User $user)
     {
         return $this->response->collection($user->getActiveUsers(), new UserTransformer());
+    }
+
+    public function wang()
+    {
+        $a = \DB::table('users')->get();
+        // \DB::table('users')->whereId(11)->delete();
+        dd($a);
     }
 }
