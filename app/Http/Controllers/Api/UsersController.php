@@ -123,4 +123,9 @@ class UsersController extends Controller
         // \DB::table('users')->whereId(11)->delete();
         dd($a);
     }
+
+    public function show(User $user)
+    {
+        return $this->response->item($user, new UserTransformer());
+    }
 }
